@@ -1,0 +1,161 @@
+﻿    @page
+    @model UserModel
+    @{
+    }
+
+    <head>
+        <style>
+            .userForm {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 20px;
+                background-color: white;
+                border: 1px solid #ccc;
+                z-index: 9999;
+            }
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 9998;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('button.changeBtn').click(function () {
+                    var row = $(this).closest('tr');
+                    var userId = row.find('td:eq(0)').text();
+                    var firstName = row.find('td:eq(1)').text();
+                    var lastName = row.find('td:eq(2)').text();
+                    var email = row.find('td:eq(3)').text();
+                    var phoneNumber = row.find('td:eq(4)').text();
+                    var address = row.find('td:eq(5)').text();
+                    var role = row.find('td:eq(7)').text();
+
+                    $('#userId').val(userId);
+                    $('#firstName').val(firstName);
+                    $('#lastName').val(lastName);
+                    $('#email').val(email);
+                    $('#PhoneNumber').val(phoneNumber);
+                    $('#Address').val(address);
+                    $('#Role').val(role);
+
+
+                    $('#editForm').show();
+                });
+                $('a.cancelFormBtn').click(function () {
+                $('.userForm').hide();
+                });
+            $('button.deleteBtn').click(function () {
+                var row = $(this).closest('tr');
+                var userId = row.find('td:eq(0)').text();
+                $('#deleteForm').val(userId);
+
+                $('#deleteForm').show();
+            });
+            });
+        </script>
+
+    </head>
+
+    <h2 class="text-center">Список користувачів</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ім'я</th>
+                <th>Прізвище</th>
+                <th>Email</th>
+                <th>Телефон</th>
+                <th>Адреса</th>
+                <th>Дата створення</th>
+                <th>Роль</th>
+                <th>Змінити</th>
+                <th>Видалити</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Users != null)
+            {
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td>@user.UserId</td>
+                        <td>@user.FirstName</td>
+                        <td>@user.LastName</td>
+                        <td>@user.Email</td>
+                        <td>@user.PhoneNumber</td>
+                        <td>@user.Address</td>
+                        <td>@user.CreatedAt.ToString("dd/MM/yyyy")</td>
+                        <td>@user.Role</td>
+                        <td> <button type="submit" class="btn btn-primary changeBtn">Change</button></td>
+                        <td> <button type="submit" class="btn btn-danger deleteBtn">Delete</button></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+<form class="userForm" id="editForm" method="post" asp-page-handler="SaveChanges">
+        <input type="hidden" id="userId" name="UserId" value="">
+        <div class="form-group">
+            <label for="firstName">Ім'я</label>
+            <input type="text" class="form-control" id="firstName" name="FirstName" value="">
+        </div>
+        <div class="form-group">
+            <label for="lastName">Прізвище</label>
+            <input type="text" class="form-control" id="lastName" name="LastName" value="">
+        </div>
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <input type="email" class="form-control" id="email" name="Email" value="">
+        </div>
+        <div class="form-group">
+            <label for="PhoneNumber">Телефон</label>
+            <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" value="">
+        </div>
+        <div class="form-group">
+            <label for="Address">Адрес</label>
+            <input type="text" class="form-control" id="Address" name="Address" value="">
+        </div>
+        <div class="form-group">
+            <label for="Role">Роль</label>
+            <select class="form-control" id="Role" name="Role">
+                @if (Model.Roles != null)
+                {
+                    @foreach (var role in Model.Roles)
+                    {
+                        <option value="@role.Name">@role.Name</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="row mb-3">
+            <div class="col d-grid">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+            <div class="col d-grid">
+                <a class="btn btn-outline-primary cancelFormBtn" role="button">Cancel</a>
+            </div>
+        </div>
+    </form>
+<form class="userForm" id="deleteForm" method="post" asp-page-handler="DeleteUser">
+    <input type="hidden" id="userId" name="userId" value=""> 
+    <h5>Are you sure?</h5>
+    <div class="row mb-3">
+        <div class="col d-grid">
+            <button type="submit" class="btn btn-primary">Yes</button>
+        </div>
+        <div class="col d-grid">
+            <a class="btn btn-outline-primary cancelFormBtn" role="button">No</a>
+        </div>
+    </div>
+</form>
