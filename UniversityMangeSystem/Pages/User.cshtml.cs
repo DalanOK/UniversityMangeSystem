@@ -97,9 +97,10 @@ namespace UniversityMangeSystem.Pages
                 return Page();
             }
         }
-        public async Task<IActionResult> OnPostDeleteUserAsync() 
+        public async Task<IActionResult> OnPostDeleteUserAsync(string userId) 
         {
-            var user = await _userManager.FindByIdAsync("cb6e1de5-a4f7-44b1-aec4-b79cdedf2ae9");
+            Console.WriteLine("User ID: " + userId);
+            var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
                 return NotFound();

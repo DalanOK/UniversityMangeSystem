@@ -1,0 +1,83 @@
+﻿@page
+@model UniversityMangeSystem.Pages.AddWorkModel
+
+@{
+    ViewData["Title"] = "AddWork";
+}
+
+<head>
+    <style>
+        h1{
+            text-align:center;
+        }
+        .row{
+            justify-content:center;
+        }
+        .btn-primary{
+            margin-top: 15px;
+        }
+        .lastBtns{
+            display: flex;
+            justify-content: space-between;
+        }
+        #backBtn{
+            height: 38px;
+            width:22;
+            margin-top:15px;
+        }
+    </style>
+</head>
+
+<h1>AddWork</h1>
+<hr />
+<div class="wrapper">
+
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="WorkEntity.Id" value="@Model.WorkId"/>
+            <div class="form-group">
+                <label asp-for="WorkEntity.Title" class="control-label"></label>
+                <input asp-for="WorkEntity.Title" class="form-control" />
+                <span asp-validation-for="WorkEntity.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkEntity.Topic" class="control-label"></label>
+                <input asp-for="WorkEntity.Topic" class="form-control" />
+                <span asp-validation-for="WorkEntity.Topic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkEntity.SubmissionDate" class="control-label"></label>
+                <input asp-for="WorkEntity.SubmissionDate" class="form-control" />
+                <span asp-validation-for="WorkEntity.SubmissionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkEntity.Status" class="control-label">Status</label>
+                <select asp-for="WorkEntity.Status" class="form-control">
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+                <span asp-validation-for="WorkEntity.Status" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="WorkEntity.AuthorID" value="@Model.UserId" />
+            <div class="form-group">
+                <label asp-for="WorkEntity.ConsultantID" class="control-label"></label>
+                <select asp-for="WorkEntity.ConsultantID" class="form-control" asp-items="ViewBag.ConsultantID"></select>
+                <span asp-validation-for="WorkEntity.ConsultantID" class="text-danger"></span>
+            </div>
+            <div class="form-group lastBtns">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-page="/Student" id ="backBtn" class="btn btn-danger">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

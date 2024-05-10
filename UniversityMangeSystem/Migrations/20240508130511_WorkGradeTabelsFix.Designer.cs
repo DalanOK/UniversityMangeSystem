@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityMangeSystem.Services;
 
@@ -11,9 +12,11 @@ using UniversityMangeSystem.Services;
 namespace UniversityMangeSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240508130511_WorkGradeTabelsFix")]
+    partial class WorkGradeTabelsFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,19 +54,19 @@ namespace UniversityMangeSystem.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3cd8238a-0276-45f5-ac85-757d4dd6dbb8",
+                            Id = "9a46f624-d7a7-414c-8f16-63ff132a24ee",
                             Name = "admin",
                             NormalizedName = "admin"
                         },
                         new
                         {
-                            Id = "d989a071-db91-42a0-be4a-fc8ed1c3b8d7",
+                            Id = "3281b7f0-3d44-428a-a11c-f952c0037a5e",
                             Name = "student",
                             NormalizedName = "student"
                         },
                         new
                         {
-                            Id = "ed2cd96f-85c3-46aa-af54-bb3b1a8e96b0",
+                            Id = "9be625f7-92f0-44fb-8cf9-6b451515eb60",
                             Name = "teacher",
                             NormalizedName = "teacher"
                         });
@@ -280,7 +283,7 @@ namespace UniversityMangeSystem.Migrations
                     b.HasIndex("WorkID")
                         .IsUnique();
 
-                    b.ToTable("Grades", (string)null);
+                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("UniversityMangeSystem.Models.WorkEntity", b =>
@@ -318,7 +321,7 @@ namespace UniversityMangeSystem.Migrations
 
                     b.HasIndex("ConsultantID");
 
-                    b.ToTable("Works", (string)null);
+                    b.ToTable("Works");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

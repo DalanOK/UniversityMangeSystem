@@ -1,0 +1,1 @@
+﻿ALTER TABLE AspNetUserLogins DROP CONSTRAINT PK_AspNetUserLogins

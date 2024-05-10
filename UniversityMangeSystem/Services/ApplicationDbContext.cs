@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UniversityMangeSystem.Models;
+using UniversityMangeSystem.Configurations;
+using UniversityMangeSystem.Models.Configurations;
 
 namespace UniversityMangeSystem.Services
 {
@@ -11,10 +13,15 @@ namespace UniversityMangeSystem.Services
         {
 
         }
-        
-
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<WorkEntity> Works { get; set; }
+        public DbSet<GradeEntity> Grades {get;set;}
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.ApplyConfiguration(new WorkConfiguration());
+            builder.ApplyConfiguration(new GradeConfiguration());
+            builder.ApplyConfiguration(new MessageConfiguration());
+
             base.OnModelCreating(builder);
 
             var admin = new IdentityRole("admin");

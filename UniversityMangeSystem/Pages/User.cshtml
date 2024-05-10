@@ -56,7 +56,7 @@
             $('button.deleteBtn').click(function () {
                 var row = $(this).closest('tr');
                 var userId = row.find('td:eq(0)').text();
-                $('#deleteForm').val(userId);
+                $('#userIdToDel').val(userId);
 
                 $('#deleteForm').show();
             });
@@ -148,7 +148,7 @@
         </div>
     </form>
 <form class="userForm" id="deleteForm" method="post" asp-page-handler="DeleteUser">
-    <input type="hidden" id="userId" name="userId" value=""> 
+    <input type="hidden" id="userIdToDel" name="UserId" value=""> 
     <h5>Are you sure?</h5>
     <div class="row mb-3">
         <div class="col d-grid">

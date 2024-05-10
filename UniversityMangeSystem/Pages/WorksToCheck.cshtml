@@ -1,0 +1,89 @@
+﻿@page
+@model UniversityMangeSystem.Pages.WorksToCheckModel
+@{
+}
+<h1>Works</h1>
+<head>
+    <style>
+        .gradeForm {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            z-index: 9999;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('button.gradeBtn').click(function () {
+                var row = $(this).closest('tr');
+                var workId = row.find('td:eq(0)').text();
+
+                $('#workId').val(workId);
+
+                $('#gradeForm').show();
+            });
+            $('a.cancelFormBtn').click(function () {
+                $('.gradeForm').hide();
+            });
+        });
+    </script>
+
+</head>
+<table class="table">
+    <thead>
+        <tr>
+            <th>WorkId</th>
+            <th>Title</th>
+            <th>Topic</th>
+            <th>Submission Date</th>
+            <th>Status</th>
+            <th>Student</th>
+            <th>AddGrade</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var work in Model.UserWorks)
+        {
+            <tr>
+                <td>@work.Id</td>
+                <td>@work.Title</td>
+                <td>@work.Topic</td>
+                <td>@work.SubmissionDate</td>
+                <td>@work.Status</td>
+                <td>@Model.StudentNames[Model.UserWorks.IndexOf(work)]</td>
+                <td><button type="submit" class="btn btn-primary gradeBtn">Grade</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<form class="gradeForm" id="gradeForm" method="post" asp-page-handler="GradeWork">
+    <input type="hidden" id="workId" name="workId" value="">
+    <div class="form-group">
+        <label for="firstName">Grade</label>
+        <input type="number" class="form-control" id="workGrade" name="workGrade" value="">
+    </div>
+    <div class="row mb-3">
+        <div class="col d-grid">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+        <div class="col d-grid">
+            <a class="btn btn-outline-primary cancelFormBtn" role="button">Cancel</a>
+        </div>
+    </div>
+</form>

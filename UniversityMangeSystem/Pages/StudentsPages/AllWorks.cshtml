@@ -1,0 +1,133 @@
+﻿@page
+@model AllWorksModel
+
+@{
+    ViewData["Title"] = "UserWorks";
+}
+<head>
+    <style>
+        .userForm {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            z-index: 9999;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('button.changeBtn').click(function () {
+                var row = $(this).closest('tr');
+                var workId = row.find('td:eq(0)').text();
+                var title = row.find('td:eq(1)').text();
+                var topic = row.find('td:eq(2)').text();
+                var status = row.find('td:eq(4)').text();
+                var teacher = row.find('td:eq(5)').text();
+
+                $('#workId').val(workId);
+                $('#title').val(title);
+                $('#topic').val(topic);
+                $('#status').val(status);
+                $('#teacher').val(teacher);
+
+                $('#editWorkForm').show();
+            });
+            $('a.cancelFormBtn').click(function () {
+                $('.userForm').hide();
+            });
+        });
+    </script>
+</head>
+<h1>User Works</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Topic</th>
+            <th>Submission Date</th>
+            <th>Status</th>
+            <th>Teacher</th>
+            <th>Grade</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model.UserWorks != null)
+        {
+            @for (var i = 0; i < Model.UserWorks.Count; i++)
+            {
+                var work = Model.UserWorks[i];
+                <tr>
+                    <td>@work.Id</td>
+                    <td>@work.Title</td>
+                    <td>@work.Topic</td>
+                    <td>@work.SubmissionDate</td>
+                    <td>@work.Status</td>
+                    <td>@Model.TeachersNames[i]</td>
+                    <td>@Model.Grades[i]</td>
+                    @if (@Model.Grades[i] == "No Grade")
+                    {
+                        <td><button type="submit" class="btn btn-primary changeBtn">Change</button></td>
+                    }
+                    else
+                    {
+                        <td>Cant Change</td>
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<form class="userForm" id="editWorkForm" method="post" asp-page-handler="SaveChangesWork">
+    <input type="hidden" id="workId" name="workId" value="">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" name="title">
+    </div>
+    <div class="form-group">
+        <label for="topic">Topic</label>
+        <input type="text" class="form-control" id="topic" name="topic">
+    </div>
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select class="form-control" id="status" name="status">
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="teacher">Teacher</label>
+        <select class="form-control" id="teacher" name="teacher">
+            @foreach (var item in (SelectList)ViewData["ConsultantID"])
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        </select>
+    </div>
+    <div class="row mb-3">
+        <div class="col d-grid">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+        <div class="col d-grid">
+            <a class="btn btn-outline-primary cancelFormBtn" role="button">Cancel</a>
+        </div>
+    </div>
+</form>
