@@ -65,6 +65,7 @@
             <th>Status</th>
             <th>Teacher</th>
             <th>Grade</th>
+            <th>Message</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -82,6 +83,9 @@
                     <td>@work.Status</td>
                     <td>@Model.TeachersNames[i]</td>
                     <td>@Model.Grades[i]</td>
+                    <td>
+                        <a class="btn btn-primary messageBtn" href="ChatHistory?workId=@work.Id">Send Message</a>
+                    </td>
                     @if (@Model.Grades[i] == "No Grade")
                     {
                         <td><button type="submit" class="btn btn-primary changeBtn">Change</button></td>

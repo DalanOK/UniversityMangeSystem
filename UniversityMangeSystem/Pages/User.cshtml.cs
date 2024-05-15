@@ -99,25 +99,33 @@ namespace UniversityMangeSystem.Pages
         }
         public async Task<IActionResult> OnPostDeleteUserAsync(string userId) 
         {
-            Console.WriteLine("User ID: " + userId);
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
+            try
             {
-                return NotFound();
-            }
-            var result = await _userManager.DeleteAsync(user);
-            if (result.Succeeded)
-            {
-                return RedirectToPage(); 
-            }
-            else
-            {
-                foreach (var error in result.Errors)
+                Console.WriteLine("User ID: " + userId);
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    return NotFound();
                 }
-                return Page();
+                var result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToPage();
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return Page();
+                }
             }
+            catch
+            {
+                return RedirectToPage();
+            }
+
         }
     }
 }

@@ -38,7 +38,7 @@ namespace UniversityMangeSystem.Pages
             WorkId = GenerateNewId();
 
             var teacherUserIds = _context.UserRoles
-    .Where(ur => ur.RoleId == "ed2cd96f-85c3-46aa-af54-bb3b1a8e96b0")
+    .Where(ur => ur.RoleId == "e62d5bf8-1c03-4ef2-b3f8-0eea9ba79ec7")
     .Select(ur => ur.UserId)
     .ToList();
 

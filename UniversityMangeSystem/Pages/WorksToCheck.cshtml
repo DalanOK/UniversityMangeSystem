@@ -42,6 +42,7 @@
                 $('.gradeForm').hide();
             });
         });
+
     </script>
 
 </head>
@@ -54,6 +55,7 @@
             <th>Submission Date</th>
             <th>Status</th>
             <th>Student</th>
+            <th>Message</th>
             <th>AddGrade</th>
         </tr>
     </thead>
@@ -67,6 +69,9 @@
                 <td>@work.SubmissionDate</td>
                 <td>@work.Status</td>
                 <td>@Model.StudentNames[Model.UserWorks.IndexOf(work)]</td>
+                <td>
+                    <a class="btn btn-primary messageBtn" href="ChatHistory?workId=@work.Id">Send Message</a>
+                </td>
                 <td><button type="submit" class="btn btn-primary gradeBtn">Grade</button></td>
             </tr>
         }

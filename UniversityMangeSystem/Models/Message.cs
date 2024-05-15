@@ -8,6 +8,7 @@ namespace UniversityMangeSystem.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Data { get; set; }
+        public string Status { get; set; }
         public string SenderID { get; set; }
         public string ReceiverID { get; set; }
         public string WorkID { get; set; }

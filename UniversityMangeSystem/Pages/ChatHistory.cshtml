@@ -1,0 +1,59 @@
+﻿@page
+@model UniversityMangeSystem.Pages.ChatHistoryModel
+
+<head>
+    <style>
+        .message-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            padding: 5px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            width: 45%;
+        }
+
+        .sender-message {
+            align-self: flex-end;
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .receiver-message {
+            align-self: flex-start;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var workId = location.search.split('workId=')[1];
+            $('#workId').val(workId);
+        });
+    </script>
+</head>
+<h1>Chat History</h1>
+
+<div class="message-list">
+    @if (Model.Messages != null)
+    {
+        @foreach (var message in Model.Messages)
+        {
+            <div class="message @(Convert.ToString(@message.Sender) != "" ? " sender-message" : "receiver-message" )">
+                @message.Data - @message.DateSent
+            </div>
+        }
+    }
+</div>
+
+<form class="userForm" id="deleteForm" method="post" asp-page-handler="NewMessage">
+    <input type="hidden" id="workId" name="workId" value="">
+    <div class="form-group">
+        <label for="newMessage">New Message:</label>
+        <textarea class="form-control" id="newMessage" name="NewMessage" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Send</button>
+</form>

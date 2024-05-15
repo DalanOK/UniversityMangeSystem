@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityMangeSystem.Services;
 
@@ -11,9 +12,11 @@ using UniversityMangeSystem.Services;
 namespace UniversityMangeSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240510125619_AddMessageTable")]
+    partial class AddMessageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,19 +54,19 @@ namespace UniversityMangeSystem.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d319244e-90ab-4fe1-850e-61c8224370e3",
+                            Id = "1c8ad389-e0c9-42c6-bef0-741d3c8790e0",
                             Name = "admin",
                             NormalizedName = "admin"
                         },
                         new
                         {
-                            Id = "ced8c110-8e59-4798-bf9e-636479da35db",
+                            Id = "e901ad35-50b7-47d2-806d-21ff207c47c6",
                             Name = "student",
                             NormalizedName = "student"
                         },
                         new
                         {
-                            Id = "e62d5bf8-1c03-4ef2-b3f8-0eea9ba79ec7",
+                            Id = "b1a57570-03e3-44ac-8f05-646e2f52f4cb",
                             Name = "teacher",
                             NormalizedName = "teacher"
                         });
@@ -308,10 +311,6 @@ namespace UniversityMangeSystem.Migrations
                     b.Property<string>("SenderID")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WorkID")
                         .IsRequired()

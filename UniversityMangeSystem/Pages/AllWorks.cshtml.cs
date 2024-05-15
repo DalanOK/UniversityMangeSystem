@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using UniversityMangeSystem.Models;
 using UniversityMangeSystem.Services;
 
-namespace UniversityMangeSystem.Pages.StudentsPages
+namespace UniversityMangeSystem.Pages
 {
     public class AllWorksModel : PageModel
     {
@@ -27,7 +27,7 @@ namespace UniversityMangeSystem.Pages.StudentsPages
         public async Task<IActionResult> OnGetAsync()
         {
             var teacherUserIds = _context.UserRoles
-           .Where(ur => ur.RoleId == "ed2cd96f-85c3-46aa-af54-bb3b1a8e96b0")
+           .Where(ur => ur.RoleId == "e62d5bf8-1c03-4ef2-b3f8-0eea9ba79ec7")
            .Select(ur => ur.UserId)
            .ToList();
 
@@ -122,7 +122,7 @@ namespace UniversityMangeSystem.Pages.StudentsPages
             work.Title = title;
             work.Topic = topic;
             work.Status = status;
-            work.ConsultantID = teacher; 
+            work.ConsultantID = teacher;
 
             _context.Works.Update(work); // Update the work in the context
 

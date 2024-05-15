@@ -54,6 +54,7 @@
             <th>Status</th>
             <th>Student</th>
             <th>Grade</th>
+            <th>Chat</th>
             <th>ChangeGrade</th>
         </tr>
     </thead>
@@ -69,6 +70,9 @@
                 <td>@work.Status</td>
                 <td>@Model.StudentNames[i]</td>
                 <td>@Model.Grades[i]</td>
+                <td>
+                    <a class="btn btn-primary messageBtn" href="ChatHistory?workId=@work.Id">Send Message</a>
+                </td>
                 <td><button type="submit" class="btn btn-primary gradeBtn">Change Grade</button></td>
             </tr>
         }
